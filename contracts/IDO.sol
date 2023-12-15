@@ -33,6 +33,8 @@ contract IDO is Ownable {
     // Mapping which hold how much bought every wallet
     mapping(address => uint256) public allocations;
 
+    uint256 public constant VIEW_CONSTANT = 100;
+
     //user buy event
     event PurchaseCompleted(address indexed buyer, uint256 amount);
     // token release event
@@ -96,7 +98,7 @@ contract IDO is Ownable {
         require(msg.value >= minAllocation, "Below minimum purchase amount");
         require(msg.value <= maxAllocation, "Exceeds maximum purchase amount");
         address sender = msg.sender;
-        uint256 tokenAmount = msg.value.mul(tokenEthRate);
+        uint256 tokenAmount = (msg.value.mul(tokenEthRate)).div(VIEW_CONSTANT);
         require(
             allocations[sender].add(tokenAmount) <= maxAllocation,
             "TokenSale: you try buy more than max allocation"

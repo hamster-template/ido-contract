@@ -103,7 +103,7 @@ contract IDO is Ownable {
             allocations[sender].add(tokenAmount) <= maxAllocation,
             "TokenSale: you try buy more than max allocation"
         );
-        allocations[sender] = allocations[sender].add(msg.value);
+        allocations[sender] = allocations[sender].add(tokenAmount);
         emit PurchaseCompleted(msg.sender, msg.value);
     }
 
